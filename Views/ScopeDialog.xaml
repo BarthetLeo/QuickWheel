@@ -1,0 +1,53 @@
+<Window x:Class="QuickWheel.Views.ScopeDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Nouveau raccourci"
+        Width="420" SizeToContent="Height" ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
+        Background="{StaticResource Ink}" Foreground="{StaticResource TextBrush}"
+        FontFamily="{StaticResource UiText}" FontSize="13">
+    <StackPanel Margin="20">
+        <TextBlock x:Name="Heading" Style="{StaticResource H1}" Text="Où doit apparaître ce raccourci ?" TextWrapping="Wrap" />
+
+        <RadioButton x:Name="GlobalRadio" GroupName="Scope" Margin="0,18,0,0" Checked="Scope_Changed">
+            <StackPanel>
+                <TextBlock Text="Global" FontWeight="SemiBold" />
+                <TextBlock Style="{StaticResource Hint}" Text="Dans toutes les roues. Tu pourras le placer différemment dans chacune." />
+            </StackPanel>
+        </RadioButton>
+
+        <RadioButton x:Name="ThisAppRadio" GroupName="Scope" Margin="0,12,0,0" Checked="Scope_Changed">
+            <StackPanel>
+                <TextBlock x:Name="ThisAppText" Text="Cette app" FontWeight="SemiBold" />
+                <TextBlock Style="{StaticResource Hint}" Text="Seulement dans la roue de l'app que tu modifies." />
+            </StackPanel>
+        </RadioButton>
+
+        <RadioButton x:Name="AppsRadio" GroupName="Scope" Margin="0,12,0,0" Checked="Scope_Changed">
+            <StackPanel>
+                <TextBlock Text="Plusieurs apps" FontWeight="SemiBold" />
+                <TextBlock Style="{StaticResource Hint}" Text="Un seul raccourci partagé : le modifier le modifie partout où il apparaît." />
+            </StackPanel>
+        </RadioButton>
+
+        <Border x:Name="AppsPanel" Margin="28,10,0,0" Padding="10" CornerRadius="8" Background="{StaticResource Surface}"
+                BorderBrush="{StaticResource Line}" BorderThickness="1" Visibility="Collapsed" MaxHeight="220">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ItemsControl x:Name="AppsList">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <CheckBox Content="{Binding Name}" IsChecked="{Binding IsChecked}" Margin="0,3" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Border>
+
+        <TextBlock x:Name="ErrorText" Foreground="#E08A7A" Margin="0,10,0,0" Visibility="Collapsed" TextWrapping="Wrap" />
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+            <Button Content="Annuler" IsCancel="True" Margin="0,0,8,0" />
+            <Button x:Name="OkButton" Content="Créer le raccourci" Style="{StaticResource Primary}" IsDefault="True" Click="Ok_Click" />
+        </StackPanel>
+    </StackPanel>
+</Window>
